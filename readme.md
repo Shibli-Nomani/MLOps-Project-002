@@ -115,7 +115,8 @@ pyenv shell 3.8.6
 >> 👉  note: select python kernel  [View >> Command Palette >> Python(select interpreter) >> Python 3.8.6 (mlops_env: venv)]
 ### 💡 Exploratory Data Analysis and Install Dependent Libaries
 9. Use vscode for EDA on Jypter Notebook and other project related work
-10. 🎏 install requiered python libaries after activating the virtual env
+10. 🎏 install requiered python libaries after activating the virtual env 
+powerhell command
 ```
 pip install scikit-learn
 pip install xgboost
@@ -130,12 +131,12 @@ powerhell command
 ```sh
 pip install -r notebook_requirements.txt 
 ```
-11. Performing EDA and Model Bulding over Dataset in **notebook**
-12. 👻 add .gitignore in project directory to ignore the files that you don't want to push in git
+1.  Performing EDA and Model Bulding over Dataset in **notebook**
+2.  👻 add .gitignore in project directory to ignore the files that you don't want to push in git
     
-13. to upload files / project in github
+3.  to upload files / project in github
     >> a. Source Control >> select git repo >> commit
-14. apply git push under virtual env powershell for any new change
+4.  apply git push under virtual env powershell for any new change
 ```sh
 git push
 ```
