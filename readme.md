@@ -178,16 +178,13 @@ a. create custom image
   context: .
   dockerfile: ./DockerFile #new image
 
-b. add project directory under evironment:
-ATRFLOW_PROJ_DIR: airflow_folder/
 
-c. environment:
+b. environment:
 replace CeleryExecutor by LocalExecutor
 
-d. volumes:
+c. volumes:
 
-
-e. change the volumn directory
+d. change the volumn directory
 volumes:
 
  
@@ -205,6 +202,18 @@ g. remove airflow-worker
 👉note: Avoid unnecessary service and over consumption of memory and CPU by using **LocalExecutor**
 ```
 13. create folder dags, logs, config, plugins under project directory
+```sh
+mkdir dags
+```
+```sh
+mkdir logs
+```
+```sh
+mkdir plugins
+```
+```sh
+mkdir config
+```
 
 🌵 run below commands outside of virtual environment in powershell
  a. to de-activate virtual env in powershell
@@ -236,13 +245,32 @@ pass: airflow
 ![Alt text](image-2.png)
 
 14. Create test.py under dags folder to check the Apache Airflow pipeline performance
- 🔨define Work Function
- 🔨prepare dag
- 🔨prepare task id 
- 🔨assign task
- 🔨define task function  
- 🔨 task direction
+      
+      ```
+
+      🔨define Work Function
+
+      🔨prepare dag
+
+      🔨prepare task id 
+
+      🔨assign task
+
+      🔨define task function  
+
+      🔨 task direction
+      ```
+
 🌵note: use Crontab guru to  set the date
 ```sh
 https://crontab.guru/
 ```
+<h4>😤 sometimes error generates for following issues </h4>
+      
+         a. python version mismatch in DockerFile and Virtual Env. Use proper version
+   
+         b. directory issues: dags, logs, plugins, config. Delete and Recreate
+   
+         c. click proper localhost for Apache Airflow
+
+      
