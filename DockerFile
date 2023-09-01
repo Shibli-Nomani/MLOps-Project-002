@@ -1,0 +1,11 @@
+
+FROM apache/airflow:2.6.3
+
+ENV AIRFLOW_HOME = /opt/airflow
+USER root
+RUN apt-get update -qq
+USER $AIRFLOW_UID
+COPY requirement.txt . 
+RUN pip install --no-cache-dir -r requirement.txt
+RUN pip install --upgrade pip
+RUN python -m pip install --upgrade pip

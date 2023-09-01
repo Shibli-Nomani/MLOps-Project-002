@@ -138,7 +138,111 @@ pip install -r notebook_requirements.txt
     >> a. Source Control >> select git repo >> commit
 4.  apply git push under virtual env powershell for any new change
 ```sh
+git pull
+```
+```sh
 git push
 ```
+>> a. Source Control >> select git repo >> commit
+
+### 💻Docker Container and Apache Airflow
+1.  Docker Installation as per previous instruction
+```sh
+https://docs.docker.com/docker-for-windows/install/ 
+
+```
+
+👉note: Need to install Docker + Docker Compose individually in case of Linux. Both install together in windows
+12.  Add docker-compose.yaml for Apache Airflow
+New File >> copy/paste docker-compose.yaml using following link👇
+```sh
+https://airflow.apache.org/docs/apache-airflow/2.6.3/docker-compose.yaml
+```
+####💥 customized  **docker-compose.yaml**
+######❄️Pre-required steps
+👉1. create **DockerFile** to run the image in docker-compose.yaml
+```
+file name should be DockerFile
+```
+👉2. create **requirement.txt** to run the image in docker-compose.yaml
+
+To check the list of python version of different libaries[without virtual env]
+```sh
+pip freeze
+```
+
+```
+👉3. docker-compose.yaml customization
+a. create custom image
+ build: 
+  context: .
+  dockerfile: ./DockerFile #new image
+
+b. add project directory under evironment:
+ATRFLOW_PROJ_DIR: airflow_folder/
+
+c. environment:
+replace CeleryExecutor by LocalExecutor
+
+d. volumes:
 
 
+e. change the volumn directory
+volumes:
+
+ 
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./config:/opt/airflow/config
+    - ./plugins:/opt/airflow/plugins
+
+💥 also remove redis from other section
+f. Services:
+remove redis
+depends_on:
+g. remove airflow-worker
+
+👉note: Avoid unnecessary service and over consumption of memory and CPU by using **LocalExecutor**
+```
+13. create folder dags, logs, config, plugins under project directory
+
+🌵 run below commands outside of virtual environment in powershell
+ a. to de-activate virtual env in powershell
+ ```sh
+ deactivate
+ ```
+ 🎆 initate Apache Airflow
+ necessary command for powershell
+```sh
+docker-compose up airflow-init
+```
+🎆 run Apache Airflow inside docker
+```sh
+docker-compose up 
+```
+###  💡 Run Apache Airflow in Browser
+😌 Apache Airflow is ready!!
+![Alt text](image-1.png)
+
+```sh
+http://localhost:8080/
+
+```
+Default user and pass
+'''
+user: airflow
+pass: airflow
+'''
+![Alt text](image-2.png)
+
+14. Create test.py under dags folder to check the Apache Airflow pipeline performance
+ 🔨define Work Function
+ 🔨prepare dag
+ 🔨prepare task id 
+ 🔨assign task
+ 🔨define task function  
+ 🔨 task direction
+🌵note: use Crontab guru to  set the date
+```sh
+https://crontab.guru/
+```
