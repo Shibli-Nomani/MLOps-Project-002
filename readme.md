@@ -137,13 +137,16 @@ pip install -r notebook_requirements.txt
 3.  to upload files / project in github
     >> a. Source Control >> select git repo >> commit
 4.  apply git push under virtual env powershell for any new change
+
+>> a. Source Control >> select git repo >> commit
+
 ```sh
 git pull
 ```
 ```sh
 git push
 ```
->> a. Source Control >> select git repo >> commit
+
 
 ### 💻Docker Container and Apache Airflow
 1.  Docker Installation as per previous instruction
