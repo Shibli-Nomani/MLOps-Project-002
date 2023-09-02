@@ -276,4 +276,33 @@ https://crontab.guru/
    
          c. click proper localhost for Apache Airflow
 
-      
+ ###❄️Use dags to run python script in Apache Airflow
+    a. import libaries
+    b. define function and assign task
+    c. if you need additional libaries to install inside Docker, **following the setps
+
+   😫Powershell commands
+      To proceed the command, docker-compose must be **up**
+    ```sh
+    docker ps
+    ```
+    Find the name of container and run bash to go inside docker container. here container name is `e87588ff2b07`
+     ```sh
+    docker exec -it e87588ff2b07 /bin/bash
+
+    ```
+    Install required libaries inside docker for apache airflow
+    ```sh
+    pip install xgboost
+    ```
+    Exit Container of Apache Airflow
+    ```sh
+    exit
+    ```
+    To apply changes, stop and start Airflow Container (name = e87588ff2b07)
+    ```sh
+    docker stop e87588ff2b07
+    ```
+    ```sh
+    docker start e87588ff2b07
+    ```
