@@ -386,5 +386,23 @@ git add data.dvc
 😎 note: md tokenization number will be changed with the change of new data. sample is
 '''md5: 4d9c91336a48c7628e9fad91fb45b963.dir'''
 
-#excute git commit with new version name
+🌟#excute git commit with new version name
+
+👭Jumping from one version to another
+```sh
+git checkout Head~1
+```
+```sh
+dvc checkout
+```
+or, 
+🌟go >> vscode >> source control(git) >> history >> click selected version 
+>> most right find digits to copy(copy to hash clipboard)
+#apply command in powershell[version you would like to check]
+```sh
+git checkout 6906c5b1fa6dc60b6f2269d0bd40dfd4f4cb6456(number changes as per version)
+```
+```sh
+dvc checkout
+```
 
