@@ -128,7 +128,7 @@ def business_class_training(ti):
     mae = mean_absolute_error(y_test, y_pred)
 
     print(f"business class mean_absolute_error: {mae}")
-    
+
     return None
 
 #define function for economy class

@@ -166,3 +166,4 @@ mlops_env/
 
 # logs
 logs/*
+/data

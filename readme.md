@@ -138,11 +138,14 @@ pip install -r notebook_requirements.txt
     >> a. Source Control >> select git repo >> commit
 4.  apply git push under virtual env powershell for any new change
 
->> a. Source Control >> select git repo >> commit
+
 
 ```sh
 git pull
 ```
+>> a. Source Control >> select git repo >> commit
+[version name >> add Changes to Staged Changes]
+
 ```sh
 git push
 ```
@@ -279,30 +282,86 @@ https://crontab.guru/
  ###❄️Use dags to run python script in Apache Airflow
     a. import libaries
     b. define function and assign task
+      '''
+         👊here we create **airplane_price.py** inside dags for data_preprocessing and models(economy and business)as well as follow the process as like as **test.py**
+      '''
     c. if you need additional libaries to install inside Docker, **following the setps
 
    😫Powershell commands
-      To proceed the command, docker-compose must be **up**
-    ```sh
-    docker ps
-    ```
-    Find the name of container and run bash to go inside docker container. here container name is `e87588ff2b07`
-     ```sh
-    docker exec -it e87588ff2b07 /bin/bash
+   To proceed the command, docker-compose must be up
+```sh
+docker ps
+```
+      
+   Find the name of container and run bash to go inside docker container. here container name is `e87588ff2b07`
+     
+```sh
+docker exec -it e87588ff2b07 /bin/bash
+```
+   🔥Install required libaries inside docker for apache airflow [if requires]
+    
+```sh
+pip install xgboost
+```
+   Exit Container of Apache Airflow
+    
+```sh
+exit
+```
+   To apply changes, stop and start Airflow Container (name = e87588ff2b07)
 
-    ```
-    Install required libaries inside docker for apache airflow
-    ```sh
-    pip install xgboost
-    ```
-    Exit Container of Apache Airflow
-    ```sh
-    exit
-    ```
-    To apply changes, stop and start Airflow Container (name = e87588ff2b07)
-    ```sh
-    docker stop e87588ff2b07
-    ```
-    ```sh
-    docker start e87588ff2b07
-    ```
+```sh
+docker stop e87588ff2b07
+```
+
+```sh
+docker start e87588ff2b07
+```
+
+###🐠 DVC (For Data Version)
+👉note: no need to active virual env
+   a. install git and DVC in desktop
+   link: https://git-scm.com/downloads
+   link: https://dvc.org/
+   b. Install Git (related all necessary extension) and DVC extension in vscode
+   c. Open project folder
+   d. Go to powershell terminal
+      🌟# write command to initiate git
+```sh
+git init
+```
+      🌟#initiate dvc
+         #for data versioning and check the performance for any data version. old and new
+         #access any version
+         #we can work with git for data versioning. But there is a data store limitation 10GB.
+```sh
+dvc init
+```
+      
+      🌟create a .gitignore file and write details what we don't need to push
+      (igonre those files those you don't need to commit/don't push the data file to github)
+      note: you don't need to create gitignore if it's already created
+
+      🌟add data directory to dvc 
+```sh
+dvc add data/
+```
+      😤 note: ERROR:  output 'data' is already tracked by SCM (e.g. Git). You can remove it from Git, then add to DVC
+      remove data directory from git
+```sh
+git rm -r --cached 'data'
+```
+git commit -m "stop tracking data"
+
+      🌟now add data directory to dvc 
+```sh
+dvc add data/
+```
+      note: it will create a file data.dvc
+```sh
+dvc status
+```
+   powershell will suggest what to add for tracking with git
+```sh
+git add data.dvc .gitignore
+```
