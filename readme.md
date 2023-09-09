@@ -400,7 +400,7 @@ environment:
     &airflow-common-env
     #AWS_ACCESS_KEY_ID: "your AWS_ACCESS_KEY_ID"
     #AWS_SECRET_ACCESS_KEY: "you AWS_SECRET_ACCESS_KEY"
-    #AWS_BUCKET: t-airticket-v1
+    #AWS_BUCKET: t-airticket-bucket-v1
 ```
 ### 🌳 How to create IAM and Get Access Key
  
