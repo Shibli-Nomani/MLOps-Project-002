@@ -318,7 +318,8 @@ docker stop e87588ff2b07
 docker start e87588ff2b07
 ```
 
-###🐠 DVC (For Data Version)
+### 🐠 DVC (For Data Version)
+
 👉note: no need to active virual env
    a. install git and DVC in desktop
    link: https://git-scm.com/downloads
@@ -358,25 +359,26 @@ git commit -m "stop tracking data"
 ```sh
 dvc add data/
 ```
-   note: it will create a file data.dvc
+   🌟note: it will create a file data.dvc
 ```sh
 dvc status
 ```
-   powershell will suggest what to add for tracking with git
+   🌟powershell will suggest what to add for tracking with git
 ```sh
 git add data.dvc .gitignore
 ```
 🐝 Changes value in data directory in raw_data(Clean_Dataset.csv)
 >> original: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,2.33,1,5955
+
 >> changed: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,3.33,1,7955
 
-Is it change working ❓ 
+Is the change working ❓ 
 ```sh
 dvc status
 ```
 note: yes, modified: data
 
-#add new version of data
+🌟#add new version of data
 ```sh
 dvc add data/
 ```
@@ -386,5 +388,12 @@ git add data.dvc
 😎 note: md tokenization number will be changed with the change of new data. sample is
 '''md5: 4d9c91336a48c7628e9fad91fb45b963.dir'''
 
-#excute git commit with new version name
+🌟 #excute git commit with new version name
+
+👭 changing data from one version to another version
+
+🌟#to go back to initial version
+```sh
+git checkout Head~1
+```
 
