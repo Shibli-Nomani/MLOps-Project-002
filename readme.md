@@ -389,6 +389,7 @@ git add data.dvc
 🌟#excute git commit with new version name
 
 👭Jumping from one version to another
+#for initial version
 ```sh
 git checkout Head~1
 ```
@@ -396,7 +397,8 @@ git checkout Head~1
 dvc checkout
 ```
 or, 
-🌟go >> vscode >> source control(git) >> history >> click selected version 
+🌟to choose/check specific version
+>> go >> vscode >> source control(git) >> history >> click selected version 
 >> most right find digits to copy(copy to hash clipboard)
 #apply command in powershell[version you would like to check]
 ```sh
