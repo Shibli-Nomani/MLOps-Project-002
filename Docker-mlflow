@@ -1,0 +1,15 @@
+# Base image with Python and MLflow
+FROM python:3.8
+
+# Set environment variables
+ENV FILE_DIR=/mlflow
+ENV MLFLOW_VERSION=2.4.1
+
+#create S3 bucket for model in AWS
+ENV AWS_BUCKET="t-airticket-bucket-v1"
+ENV PORT=5000
+
+#Dockerfile instructions copy and execute a script named "run.sh" when the Docker container is launched
+COPY run.sh /
+
+ENTRYPOINT ["/run.sh"]
