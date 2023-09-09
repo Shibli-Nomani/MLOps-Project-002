@@ -326,38 +326,39 @@ docker start e87588ff2b07
    b. Install Git (related all necessary extension) and DVC extension in vscode
    c. Open project folder
    d. Go to powershell terminal
-      🌟# write command to initiate git
+   
+   🌟# write command to initiate git
 ```sh
 git init
 ```
-      🌟#initiate dvc
-         #for data versioning and check the performance for any data version. old and new
-         #access any version
-         #we can work with git for data versioning. But there is a data store limitation 10GB.
+   🌟#initiate dvc
+      #for data versioning and check the performance for any data version. old and new
+      #access any version
+      #we can work with git for data versioning. But there is a data store limitation 10GB.
 ```sh
 dvc init
 ```
       
-      🌟create a .gitignore file and write details what we don't need to push
+   🌟create a .gitignore file and write details what we don't need to push
       (igonre those files those you don't need to commit/don't push the data file to github)
       note: you don't need to create gitignore if it's already created
 
-      🌟add data directory to dvc 
+   🌟add data directory to dvc 
 ```sh
 dvc add data/
 ```
-      😤 note: ERROR:  output 'data' is already tracked by SCM (e.g. Git). You can remove it from Git, then add to DVC
+   😤 note: ERROR:  output 'data' is already tracked by SCM (e.g. Git). You can remove it from Git, then add to DVC
       remove data directory from git
 ```sh
 git rm -r --cached 'data'
 ```
 git commit -m "stop tracking data"
 
-      🌟now add data directory to dvc 
+   🌟now add data directory to dvc 
 ```sh
 dvc add data/
 ```
-      note: it will create a file data.dvc
+   note: it will create a file data.dvc
 ```sh
 dvc status
 ```
@@ -365,3 +366,25 @@ dvc status
 ```sh
 git add data.dvc .gitignore
 ```
+🐝 Changes value in data directory in raw_data(Clean_Dataset.csv)
+>> original: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,2.33,1,5955
+>> changed: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,3.33,1,7955
+
+Is it change working ❓ 
+```sh
+dvc status
+```
+note: yes, modified: data
+
+#add new version of data
+```sh
+dvc add data/
+```
+```sh
+git add data.dvc
+```
+😎 note: md tokenization number will be changed with the change of new data. sample is
+'''md5: 4d9c91336a48c7628e9fad91fb45b963.dir'''
+
+#excute git commit with new version name
+
