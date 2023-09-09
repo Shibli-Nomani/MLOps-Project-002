@@ -1,3 +1,7 @@
+
+### 😺 Complete list of emoji Markup: 
+https://gist.github.com/rxaviers/7360908
+
 ### 🐍 Environment Setup
 1. Install vscode
 2. Install Python pyenv 
@@ -287,7 +291,7 @@ https://crontab.guru/
    
          c. click proper localhost for Apache Airflow
 
- ###❄️Use dags to run python script in Apache Airflow
+ ### ❄️Use dags to run python script in Apache Airflow
     a. import libaries
     b. define function and assign task
       '''
@@ -334,6 +338,7 @@ b. select python dag directory to execute black
 ```sh
 black .\dags\airplane_price.py
 ```
+c. add docstring for developer understanding for each task. 😇
 
 ###🐠 DVC (For Data Version)
 
@@ -405,6 +410,9 @@ environment:
 ### 🌳 How to create IAM and Get Access Key
  
  about aws access key and iam : https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+
+😅 select the main brach to upload any update in GitHub as we have created DVC for Data Version 
+![Alt text](image-3.png)
 
 ### Upcoming
 

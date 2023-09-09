@@ -21,6 +21,23 @@ from sklearn.metrics import mean_absolute_error
 
 def data_preprocessing(ti, path="/opt/airflow/data/raw_data/Clean_Dataset.csv"):
     
+    """
+    This script performs data preprocessing tasks on a flight dataset. It includes the following steps:
+
+    1. Read the dataset from a CSV file.
+    2. Convert ordinal categorical variables to numerical values.
+    3. Perform one-hot encoding for selected categorical variables.
+    4. Apply the Yeo-Johnson transformation to ensure normal distribution for continuous variables.
+    5. Standardize specific columns using StandardScaler.
+    6. Remove outliers separately for Economy and Business class based on price.
+    7. Save cleaned datasets for Economy and Business class in CSV files.
+    8. Create a context directory containing file paths for the saved data.
+    9. Push the context directory to the next stage in the workflow using XCom.
+
+    Note: This script assumes specific column names and file paths and is part of a larger data processing pipeline.
+    """
+
+    
     df = pd.read_csv(path)
     print(df)
     
@@ -113,6 +130,28 @@ def data_preprocessing(ti, path="/opt/airflow/data/raw_data/Clean_Dataset.csv"):
 #define function for business class
 
 def business_class_training(ti):
+    
+    """
+    This function is responsible for training a machine learning model for the Business class pricing prediction using the preprocessed data. It performs the following steps:
+
+    1. Pulls the preprocessed data of the Business class from a context directory via XCom.
+    2. Reads the features and target variable from the data.
+    3. Splits the data into training and testing sets.
+    4. Initializes a K-Nearest Neighbors (KNN) regression model.
+    5. Fits the KNN model to the training data.
+    6. Makes predictions on the testing data.
+    7. Computes the Mean Absolute Error (MAE) between the predicted and actual prices.
+    8. Prints the selected model and the calculated MAE for Business class pricing.
+
+    Parameters:
+        - ti: The TaskInstance object used for interacting with the Airflow environment.
+
+    Returns:
+        - None
+
+    Note: This function assumes specific data preprocessing has been performed and is part of a larger workflow.
+    """
+
     #pull the data of business
     directory_dict = ti.xcom_pull(key = "data_preparation_context")
     file_name = directory_dict['business']
@@ -134,6 +173,28 @@ def business_class_training(ti):
 #define function for economy class
 
 def economy_class_training(ti):
+    
+    """
+    This function is responsible for training a machine learning model for the Economy class pricing prediction using the preprocessed data. It performs the following steps:
+
+    1. Pulls the preprocessed data of the Economy class from a context directory via XCom.
+    2. Reads the features and target variable from the data.
+    3. Splits the data into training and testing sets.
+    4. Initializes a K-Nearest Neighbors (KNN) regression model.
+    5. Fits the KNN model to the training data.
+    6. Makes predictions on the testing data.
+    7. Computes the Mean Absolute Error (MAE) between the predicted and actual prices.
+    8. Prints the selected model and the calculated MAE for Economy class pricing.
+
+    Parameters:
+        - ti: The TaskInstance object used for interacting with the Airflow environment.
+
+    Returns:
+        - None
+
+    Note: This function assumes specific data preprocessing has been performed and is part of a larger workflow.
+    """
+
     #pull the data of economy
     directory_dict = ti.xcom_pull(key = "data_preparation_context")
     file_name = directory_dict['economy']
@@ -152,7 +213,7 @@ def economy_class_training(ti):
     
     return None
 
-
+#prepare dag
 airplane_dag = DAG(
     "Airline_ticket_price_prediction_DAG",
     # schedule_interval="@daily",
