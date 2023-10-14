@@ -114,7 +114,7 @@ pyenv shell 3.8.6
     ````
     To activate virtual env in powershell(vscode)
     ![Alt text](image-4.png)
-    
+
     ```sh
     .\mlops_env\Scripts\activate
     ```
@@ -294,8 +294,10 @@ https://crontab.guru/
          c. click proper localhost for Apache Airflow
 
  ### ❄️Use dags to run python script in Apache Airflow
+
     a. import libaries
     b. define function and assign task
+
       '''
          👊here we create **airplane_price.py** inside dags for data_preprocessing and models(economy and business)as well as follow the process as like as **test.py**
       '''
@@ -342,7 +344,7 @@ black .\dags\airplane_price.py
 ```
 c. add docstring for developer understanding for each task. 😇
 
-###🐠 DVC (For Data Version)
+### 🐠 DVC (For Data Version)
 
 DVC is like Git but for data, helping you manage and version control your data files for machine learning projects.
 
@@ -392,6 +394,55 @@ dvc status
 ```sh
 git add data.dvc .gitignore
 ```
+
+👊 DVC Dataversion Switching Process
+
+🐝 Changes value in data directory in raw_data(Clean_Dataset.csv)
+>> original: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,2.33,1,5955
+>> changed: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,3.33,1,7955
+
+Is it change working ❓ 
+```sh
+dvc status
+```
+note: yes, modified: data
+
+#add new version of data
+```sh
+dvc add data/
+```
+```sh
+git add data.dvc
+```
+😎 note: md tokenization number will be changed with the change of new data. sample is
+'''md5: 4d9c91336a48c7628e9fad91fb45b963.dir'''
+
+🌟#excute git commit with new version name
+
+👭Jumping from one version to another
+#for initial version
+```sh
+git checkout Head~1
+```
+```sh
+dvc checkout
+```
+or, 
+🌟to choose/check specific version
+>> go >> vscode >> source control(git) >> history >> click selected version 
+>> most right find digits to copy(copy to hash clipboard)
+#apply command in powershell[version you would like to check]
+```sh
+git checkout 6906c5b1fa6dc60b6f2269d0bd40dfd4f4cb6456(number changes as per version)
+```
+#checkout dvc as well
+```sh
+dvc checkout
+```
+note:
+😅 select the main brach to upload any update in GitHub as we have created DVC for Data Version 
+![Alt text](image-6.png)
+
 ### 📡 MLflow
 MLflow is an open-source platform for managing the end-to-end machine learning lifecycle, including experimentation, reproducibility, and deployment. MLflow is a tool for tracking, managing, and deploying machine learning models.
 Link: https://mlflow.org/
@@ -413,8 +464,7 @@ environment:
  
  about aws access key and iam : https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 
-😅 select the main brach to upload any update in GitHub as we have created DVC for Data Version 
-![Alt text](image-3.png)
+💡note: we need aws IAM for S3-Backet to store our model in cloud for the purpose of deployment and mlflow
 
 ### Upcoming
 
