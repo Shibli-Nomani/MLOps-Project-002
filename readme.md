@@ -113,6 +113,8 @@ pyenv shell 3.8.6
     python -m venv mlops_env
     ````
     To activate virtual env in powershell(vscode)
+    ![Alt text](image-4.png)
+    
     ```sh
     .\mlops_env\Scripts\activate
     ```
