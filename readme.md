@@ -443,16 +443,53 @@ note:
 😅 select the main brach to upload any update in GitHub as we have created DVC for Data Version 
 ![Alt text](image-6.png)
 
+
+### 🌳 How to create IAM and Get Access Key in AWS
+
+>> Top most right >> accounts >> Security Credentials >> Access keys >> Create access key
+ 
+ about aws access key and iam : https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+   1. It is always best practice to create IAM users for access key and avoid rootuser
+   To use the JSON policy editor to create a policy for access key (IAM user)
+
+   2. Create IAM users in root directory and add in-built rules
+   
+   3. To add access policy, go to permission section in IAM user
+
+   4. IAM >> User >> Permission >> Permissions policies >> add permissions 
+
+   5. Choose Create inline policy.
+   
+   6. Choose the JSON option.
+   
+   7. Type or paste a JSON policy document(for access key management for IAM user). For details about the IAM policy language, see IAM JSON policy reference.
+   
+   8. Now generate access key using AWS CLI.
+      >>IAM >> Users >> Security credentials >> create acess key
+   9.  Dowload and store the access file for future
+   
+💡note: we need aws IAM for S3-Backet to store our model in cloud for the purpose of deployment and mlflow
+
+### 🌳 How to create S3-Bucket in AWS
+
+    1.  use IAM user for creating S3 Bucket not root user
+    2.  no EC2 requires
+    3.  Amazon S3 >> create bucket >> 
+
+
 ### 📡 MLflow
 MLflow is an open-source platform for managing the end-to-end machine learning lifecycle, including experimentation, reproducibility, and deployment. MLflow is a tool for tracking, managing, and deploying machine learning models.
 Link: https://mlflow.org/
+We will use it for experiment tracking and model deployment
 
-a. create Docker File for MLflow
+a. create Docker File for MLflow.
+
 b. to check mlflow version using powershell
+
 ```sh
 pip freeze
 ```
-✳️ c. add required lines in docker-compose.yaml file
+✳️ c. add required lines in docker-compose.yaml file to access `AWS S3-Bucket`
 ```
 environment:
     &airflow-common-env
@@ -460,11 +497,19 @@ environment:
     #AWS_SECRET_ACCESS_KEY: "you AWS_SECRET_ACCESS_KEY"
     #AWS_BUCKET: t-airticket-bucket-v1
 ```
-### 🌳 How to create IAM and Get Access Key
- 
- about aws access key and iam : https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 
-💡note: we need aws IAM for S3-Backet to store our model in cloud for the purpose of deployment and mlflow
+d. create Docker-mlflow with necessary detials
 
-### Upcoming
+e. create run.sh file execution. It will set environment, perpare the mlflow server 
 
+f. go to dags >> airplane_price.py
+
+g. import necessary libaries and codes for mlflow. now we need a host for mlflow tracking server `(canbe cloud/in-premesis/docker)`. Here we use docker and add few line of code for hosting it in docker container. 
+
+h. set tracking uri in that code for mlflow. here, we choose `port 5000` in `Docker-mlflow` file
+
+```sh
+global TRACKING_SERVER_HOST
+mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
+```
+i. add services for mlflow in docker-compose.yaml

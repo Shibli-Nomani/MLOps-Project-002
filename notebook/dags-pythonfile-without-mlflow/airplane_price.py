@@ -19,14 +19,6 @@ from sklearn.neighbors import KNeighborsRegressor
 #from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error
 
-#mlflow import
-import mlflow
-from mlflow import log_metric, log_param
-
-#host for mlflow tracking server 
-#mlflow stuffs
-TRACKING_SERVER_HOST = "mlflow"
-
 def data_preprocessing(ti, path="/opt/airflow/data/raw_data/Clean_Dataset.csv"):
     
     """
@@ -159,14 +151,7 @@ def business_class_training(ti):
 
     Note: This function assumes specific data preprocessing has been performed and is part of a larger workflow.
     """
-    
-    #mlflow tracking uri server port
-    global TRACKING_SERVER_HOST
-    mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
-    experiment_name = "Business_exp"
-    mlflow.set_experiment(experiment_name)
-    model_name = "KNN"
-    
+
     #pull the data of business
     directory_dict = ti.xcom_pull(key = "data_preparation_context")
     file_name = directory_dict['business']
@@ -175,26 +160,12 @@ def business_class_training(ti):
     #traintest split
     X_train, X_test, y_train, y_test = train_test_split(feature, target, test_size =0.20, random_state=42, shuffle=True)
     
-    with mlflow.start_run():
-        model = KNeighborsRegressor()
-        print("selected model for business Class: ", model)
-        trained_model = model.fit(X_train, y_train)
-        y_pred = trained_model.predict(X_test)
-        mae = mean_absolute_error(y_test, y_pred)
-        log_param('model_name', 'KNN')
-        log_param('one_hot_encode', True)
-        log_param('outliers', True)
-        log_param('transformer', 'yeojhonson')
-        log_metric('MAE', mae)
-        
-        model_info = mlflow.sklearn.log_model(trained_model, model_name+experiment_name)
-        
-        #calling uri(url) for model
-        reg_model = mlflow.register_model(model_info.model_uri, model_name+experiment_name)
-    
-    mlflow.end_run()
-    #to see working properly or not
-    print(f"model_reg: {reg_model}")
+    model = KNeighborsRegressor()
+    print("selected model for business Class: ", model)
+    trained_model = model.fit(X_train, y_train)
+    y_pred = trained_model.predict(X_test)
+    mae = mean_absolute_error(y_test, y_pred)
+
     print(f"business class mean_absolute_error: {mae}")
 
     return None
@@ -223,13 +194,7 @@ def economy_class_training(ti):
 
     Note: This function assumes specific data preprocessing has been performed and is part of a larger workflow.
     """
-    #mlflow tracking uri server port
-    global TRACKING_SERVER_HOST
-    mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
-    experiment_name = "Economy_exp"
-    mlflow.set_experiment(experiment_name)
-    model_name = "KNN"
-    
+
     #pull the data of economy
     directory_dict = ti.xcom_pull(key = "data_preparation_context")
     file_name = directory_dict['economy']
@@ -238,26 +203,12 @@ def economy_class_training(ti):
     #traintest split
     X_train, X_test, y_train, y_test = train_test_split(feature, target, test_size =0.20, random_state=42, shuffle=True)
     
-    with mlflow.start_run():
-        model = KNeighborsRegressor()
-        print("selected model for economy Class: ", model)
-        trained_model = model.fit(X_train, y_train)
-        y_pred = trained_model.predict(X_test)
-        mae = mean_absolute_error(y_test, y_pred)
-        log_param('model_name', 'KNN')
-        log_param('one_hot_encode', True)
-        log_param('outliers', True)
-        log_param('transformer', 'yeojhonson')
-        log_metric('MAE', mae)
-        
-        model_info = mlflow.sklearn.log_model(trained_model, model_name+experiment_name)
-        
-        #calling uri(url) for model
-        reg_model = mlflow.register_model(model_info.model_uri, model_name+experiment_name)
-    
-    mlflow.end_run()
-    #to see working properly or not
-    print(f"model_reg: {reg_model}")
+    model = KNeighborsRegressor()
+    print("selected model for economy Class: ", model)
+    trained_model = model.fit(X_train, y_train)
+    y_pred = trained_model.predict(X_test)
+    mae = mean_absolute_error(y_test, y_pred)
+
     print(f"economy class mean_absolute_error: {mae}")
     
     return None

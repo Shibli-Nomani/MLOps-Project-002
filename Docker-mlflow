@@ -7,6 +7,7 @@ ENV MLFLOW_VERSION=2.4.1
 
 #create S3 bucket for model in AWS
 ENV AWS_BUCKET="t-airticket-bucket-v1"
+#mlflow port details
 ENV PORT=5000
 
 #Dockerfile instructions copy and execute a script named "run.sh" when the Docker container is launched
