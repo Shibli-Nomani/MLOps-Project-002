@@ -160,9 +160,9 @@ git push
 ### 💻Docker Container and Apache Airflow
 
 
-Docker is a platform for developing, shipping, and running applications in lightweight, portable containers, which package all the required dependencies and configurations.
+`Docker` is a platform for developing, shipping, and running applications in lightweight, portable containers, which package all the required dependencies and configurations. Docker Engine is the underlying technology that runs containers.
 
-Apache Airflow is an open-source platform designed for orchestrating, scheduling, and managing complex data workflows and data pipeline automation.
+`Apache Airflow` is an open-source platform designed for orchestrating, scheduling, and managing complex data workflows and data pipeline automation.
 
 We use Docker for Apache Airflow in ML pipelines to ensure consistent and reproducible execution environments for data workflows and model training.
 
@@ -474,42 +474,115 @@ note:
 
     1.  use IAM user for creating S3 Bucket not root user
     2.  no EC2 requires
-    3.  Amazon S3 >> create bucket >> 
-
+    3.  Amazon S3 >> create bucket >>
 
 ### 📡 MLflow
 MLflow is an open-source platform for managing the end-to-end machine learning lifecycle, including experimentation, reproducibility, and deployment. MLflow is a tool for tracking, managing, and deploying machine learning models.
 Link: https://mlflow.org/
 We will use it for experiment tracking and model deployment
 
-a. create Docker File for MLflow.
+a. update requirement.txt with `mlflow` library.
 
 b. to check mlflow version using powershell
 
 ```sh
 pip freeze
 ```
-✳️ c. add required lines in docker-compose.yaml file to access `AWS S3-Bucket`
+
+c. create Docker-mlflow with necessary detials
+
+d. create `run.sh` file execution. It will set environment, perpare the mlflow server 
+
+e. update docker-compose.yaml
+
+✳️ f. add required lines in docker-compose.yaml file to access `AWS S3-Bucket` to make it access as we store model in there.
 ```
 environment:
     &airflow-common-env
-    #AWS_ACCESS_KEY_ID: "your AWS_ACCESS_KEY_ID"
-    #AWS_SECRET_ACCESS_KEY: "you AWS_SECRET_ACCESS_KEY"
-    #AWS_BUCKET: t-airticket-bucket-v1
+    #AWS_ACCESS_KEY_ID: your AWS_ACCESS_KEY_ID
+    #AWS_SECRET_ACCESS_KEY: you AWS_SECRET_ACCESS_KEY
+    #AWS_BUCKET: your_S3-Bucket_Name_for_Model
 ```
+f. e. add services for mlflow in docker-compose.yaml
 
-d. create Docker-mlflow with necessary detials
+g. go to dags >> airplane_price.py
 
-e. create run.sh file execution. It will set environment, perpare the mlflow server 
+h. import necessary libaries and codes for mlflow. now we need a host for mlflow tracking server `(can be cloud /in-premesis / docker)`. Here we use docker and add few line of code for hosting it in docker container. 
 
-f. go to dags >> airplane_price.py
-
-g. import necessary libaries and codes for mlflow. now we need a host for mlflow tracking server `(canbe cloud/in-premesis/docker)`. Here we use docker and add few line of code for hosting it in docker container. 
-
-h. set tracking uri in that code for mlflow. here, we choose `port 5000` in `Docker-mlflow` file
+i. set tracking uri in that code for mlflow. here, we choose `port 5000` in `Docker-mlflow` file
 
 ```sh
 global TRACKING_SERVER_HOST
 mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
 ```
-i. add services for mlflow in docker-compose.yaml
+### 👽 Runnning MLFlow with Docker (without Apache Airflow)
+this is a process to check the mlflow is working properly or not in Docker Container with Apache Airflow. Perform all of this outside of 👷 `virtual environment``
+```sh
+deactivate
+```
+a. firstly, stop the `Apache Airflow` running container.
+
+powershell command:
+
+to container ID for Apache Airflow Webserver
+```sh
+docker ps
+```
+to stop  container ID for Apache Airflow Webserver
+```sh
+docker stop CONTAINER ID
+```
+to start respective container
+```sh
+docker start CONTAINER ID
+```
+b. build the image of mlflow in doceker
+```sh
+docker build -t mlflow-server -f Docker-mlflow .
+```
+c. to run the mlflow server in docker container
+```sh
+docker run -p 5000:5000 -v mlflow:/mlflow mlflow-server
+
+```
+for mlflow server: http://localhost:5000/
+
+![Alt text](image-7.png)
+
+😏 note: sometimes you may face problem due to limited space in your drive of your pc. Therefore create space in your respective drive. 
+
+### 🔓 Final Execution of Docker Containers for Apache-Airflow and MLFlow
+
+a. stops all containers
+b. remove all the containers from `Docker Desktop`
+
+Intialization
+```sh
+docker-compose up airflow-init
+```
+Bulid Docker
+```sh
+docker-compose up
+
+```
+Issue: `/run.sh: 19: mlflow: not found` . check the run.sh and Docker File.
+
+👇Output of Docker:
+![Alt text](image-8.png)
+
+😓 Issue: ERROR - Failed to execute job 16 for task bsn_training_task (Cannot set a deleted experiment 'Business_exp' as the active experiment. You can restore the experiment, or permanently delete the experiment to create a new one.; 416)
+
+😎Solution: delete both Experiments and Models if you need to re-run it with same experiment name and version name
+
+
+😓Issue: Artifacts details coming from S3 not showing in MLFlow UI
+
+solution : forget to add AWS access details in Docker File for mlflow
+#aws access key details
+
+```ENV AWS_ACCESS_KEY_ID= your aws access key id
+   ENV AWS_SECRET_ACCESS_KEY= your aws access key```
+
+😇 Project Work Summarization:
+
+Apache Airflow has been used to prerform and train the model over there. And MLFlow has been used to taking the log of training.

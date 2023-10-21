@@ -163,7 +163,7 @@ def business_class_training(ti):
     #mlflow tracking uri server port
     global TRACKING_SERVER_HOST
     mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
-    experiment_name = "Business_exp"
+    experiment_name = "Business_Exp"
     mlflow.set_experiment(experiment_name)
     model_name = "KNN"
     
@@ -191,8 +191,12 @@ def business_class_training(ti):
         
         #calling uri(url) for model
         reg_model = mlflow.register_model(model_info.model_uri, model_name+experiment_name)
-    
+        
+        # Log any other artifacts you want to include
+        # mlflow.log_artifacts("s3://t-airticket-bucket-v1/")
+        
     mlflow.end_run()
+    
     #to see working properly or not
     print(f"model_reg: {reg_model}")
     print(f"business class mean_absolute_error: {mae}")
@@ -226,7 +230,7 @@ def economy_class_training(ti):
     #mlflow tracking uri server port
     global TRACKING_SERVER_HOST
     mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
-    experiment_name = "Economy_exp"
+    experiment_name = "Economy_Exp"
     mlflow.set_experiment(experiment_name)
     model_name = "KNN"
     
@@ -254,12 +258,12 @@ def economy_class_training(ti):
         
         #calling uri(url) for model
         reg_model = mlflow.register_model(model_info.model_uri, model_name+experiment_name)
-    
+
+        #mlflow.log_artifacts("s3://t-airticket-bucket-v1/")
     mlflow.end_run()
     #to see working properly or not
     print(f"model_reg: {reg_model}")
     print(f"economy class mean_absolute_error: {mae}")
-    
     return None
 
 #prepare dag

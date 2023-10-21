@@ -4,5 +4,5 @@ xgboost
 scipy
 sklearn
 numpy
-mlflow
+mlflow==2.4.1
 evidently

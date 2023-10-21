@@ -12,9 +12,9 @@ x-airflow-common:
     dockerfile: ./DockerFile
   environment:
     &airflow-common-env
-    #aws access
-    AWS_ACCESS_KEY_ID: "your AWS_ACCESS_KEY_ID"
-    AWS_SECRET_ACCESS_KEY: "you AWS_SECRET_ACCESS_KEY"
+    #aws access.no inverted "" when will we fill with actual
+    AWS_ACCESS_KEY_ID: "your aws access key id"
+    AWS_SECRET_ACCESS_KEY: "your aws access key"
     AWS_BUCKET: t-airticket-bucket-v1
     #customized-Shibli(instead of Celery to reduce load of computation)
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
@@ -42,15 +42,15 @@ x-airflow-common:
       condition: service_healthy
 
 services:
-   mlflow:
-     build:
-       context: .
-       dockerfile: ./Docker-mlflow
-     ports:
-       - 5000:5000
-      volumes:
-        - ./mlflow:/mlflow
-
+  #mlflow add as service
+  mlflow:
+    build:
+      context: .
+      dockerfile: ./Docker-mlflow
+    ports:
+      - 5000:5000
+    # volumes:
+    #   - ./mlflow:/mlflow
   postgres:
     image: postgres:13
     environment:
