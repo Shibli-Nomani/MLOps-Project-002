@@ -11,13 +11,8 @@ ENV AWS_BUCKET="t-airticket-bucket-v1"
 ENV PORT=5000
 
 #aws access key details. no inverted "" when will we fill with actual
-<<<<<<< HEAD
 ENV AWS_ACCESS_KEY_ID='your aws access key id'
 ENV AWS_SECRET_ACCESS_KEY='your aws access key'
-=======
-ENV AWS_ACCESS_KEY_ID=AKIAVECAITT42PTSUX4J
-ENV AWS_SECRET_ACCESS_KEY=qQG5uDmvXSOl17c2h39xabTREf7lJ/AB/cwwa+Yt
->>>>>>> ffc27fb914c3bd067cd63a8dc3d40a8f02f3d5ea
 
 #for aws access need to install as follow
 RUN pip install mlflow==$MLFLOW_VERSION && \

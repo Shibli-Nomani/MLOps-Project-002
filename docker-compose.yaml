@@ -12,7 +12,7 @@ x-airflow-common:
     dockerfile: ./DockerFile
   environment:
     &airflow-common-env
-    #aws access.no inverted "" when will we fill with actual
+    #aws access. no inverted "" when will we fill with actual
     AWS_ACCESS_KEY_ID: "your aws access key id"
     AWS_SECRET_ACCESS_KEY: "your aws access key"
     AWS_BUCKET: t-airticket-bucket-v1
