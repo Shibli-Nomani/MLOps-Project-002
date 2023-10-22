@@ -23,12 +23,6 @@ from sklearn.metrics import mean_absolute_error
 import mlflow
 from mlflow import log_metric, log_param
 
-# evidently ai import for reporting/monitoring
-from evidently.metric_preset import DataDriftPreset
-from evidently.pipeline.column_mapping import ColumnMapping
-from evidently.report import Report
-
-
 #host for mlflow tracking server 
 #mlflow stuffs
 TRACKING_SERVER_HOST = "mlflow"
@@ -272,69 +266,6 @@ def economy_class_training(ti):
     print(f"economy class mean_absolute_error: {mae}")
     return None
 
-#data drifting using evidently
-
-def drifted_data(ti):
-    #key value to pull the details of data preprocessing function
-    dir_dict = ti.xcom_pull(key = 'data_preparation_context')
-    print(dir_dict)
-    dir_list = ['economy', 'business']
-    for key in dir_list:
-        filename = dir_dict[key]
-        print(filename)
-        df = pd.read_csv(filename)
-        df = df.drop(columns= "class")
-        #sampling the dataset for current and ref to see the drifting in data
-        df_ref = df.sample(n = 750, replace = False).reset_index()
-        df_current = df.sample( n= 750, replace = False).reset_index()
-        
-        #reset the index
-        df_ref = df_ref.reset_index()
-        df_current = df_current.reset_index()
-        print(df.info)
-        print(f"original data shape: {df.shape}")
-        
-        #get categorical columns
-        categorical_cols = df.select_dtypes(
-            include = ['bool', 'object', 'category']
-        ).columns.tolist()
-        print(f'categorical_cols: {categorical_cols}')
-        
-        data_columns = ColumnMapping()
-        print(f"data_columns using ColumnMapping: {data_columns}")
-        data_columns.categorical_features = categorical_cols
-        print(f"categorical_features: {data_columns.categorical_features}")
-        data_columns.numerical_features = ['stops', 'duration', 'days_left']
-        print(f"numerical_features: {data_columns.numerical_features}")
-        data_columns.target = 'price'
-        print(f"target: {data_columns.target}")
-        
-        # data_columns.prediction = 'prediction'
-        #assign path
-        dir_path = "/opt/airflow/data/reports"
-        try:
-            os.makedirs(dir_path)
-        except:
-            pass
-        file_path = f"data_drift_{key}.html"
-        
-        #reporting code for evidently
-        data_drift_report = Report(metrics=[DataDriftPreset()])
-        data_drift_report.run(
-            reference_data = df_ref,
-            current_data = df_current,
-            column_mapping = data_columns
-        )
-        
-        #create directory if not exist
-        if not os.path.exists(dir_path):
-            os.mkdir(dir_path)
-        data_drift_report.save_html(os.path.join(dir_path, file_path))
-        
-        
-        
-        
-
 #prepare dag
 airplane_dag = DAG(
     "Airline_ticket_price_prediction_DAG",
@@ -361,10 +292,6 @@ with airplane_dag:
         task_id="eco_training_task", python_callable=economy_class_training, provide_context=True
     )
 
-   #datadrift
-    data_drift_task = PythonOperator(
-        task_id="data_drift_task_id", 
-        python_callable=drifted_data, provide_context=True
-    )
+   
 
-    data_preparation_task >> data_drift_task >> [bsn_training_task, eco_training_task]
+    data_preparation_task >> [bsn_training_task, eco_training_task]

@@ -349,13 +349,18 @@ c. add docstring for developer understanding for each task. 😇
 DVC is like Git but for data, helping you manage and version control your data files for machine learning projects.
 
 👉note: no need to active virual env
-   a. install git and DVC in desktop
+   >> a. install git and DVC in desktop
    link: https://git-scm.com/downloads
    link: https://dvc.org/
-   b. Install Git (related all necessary extension) and DVC extension in vscode
-   c. Open project folder
-   d. Go to powershell terminal
-      🌟# write command to initiate git
+
+   >> b. Install Git (related all necessary extension) and DVC extension in vscode
+
+   >> c. Open project folder
+   
+   >> d. Go to powershell terminal
+      
+      🌟write command to initiate git
+
 ```sh
 git init
 ```
@@ -372,25 +377,31 @@ dvc init
       note: you don't need to create gitignore if it's already created
 
       🌟add data directory to dvc 
+
 ```sh
 dvc add data/
 ```
       😤 note: ERROR:  output 'data' is already tracked by SCM (e.g. Git). You can remove it from Git, then add to DVC
       remove data directory from git
+      
 ```sh
 git rm -r --cached 'data'
 ```
+```sh 
 git commit -m "stop tracking data"
+```
 
       🌟now add data directory to dvc 
 ```sh
 dvc add data/
 ```
       note: it will create a file data.dvc
+
 ```sh
 dvc status
 ```
    powershell will suggest what to add for tracking with git
+
 ```sh
 git add data.dvc .gitignore
 ```
@@ -402,15 +413,18 @@ git add data.dvc .gitignore
 >> changed: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,3.33,1,7955
 
 Is it change working ❓ 
+
 ```sh
 dvc status
 ```
 note: yes, modified: data
 
 #add new version of data
+
 ```sh
 dvc add data/
 ```
+
 ```sh
 git add data.dvc
 ```
@@ -421,9 +435,11 @@ git add data.dvc
 
 👭Jumping from one version to another
 #for initial version
+
 ```sh
 git checkout Head~1
 ```
+
 ```sh
 dvc checkout
 ```
@@ -431,11 +447,15 @@ or,
 🌟to choose/check specific version
 >> go >> vscode >> source control(git) >> history >> click selected version 
 >> most right find digits to copy(copy to hash clipboard)
+
 #apply command in powershell[version you would like to check]
+
 ```sh
 git checkout 6906c5b1fa6dc60b6f2269d0bd40dfd4f4cb6456(number changes as per version)
 ```
+
 #checkout dvc as well
+
 ```sh
 dvc checkout
 ```
@@ -449,6 +469,7 @@ note:
 >> Top most right >> accounts >> Security Credentials >> Access keys >> Create access key
  
  about aws access key and iam : https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+
    1. It is always best practice to create IAM users for access key and avoid rootuser
    To use the JSON policy editor to create a policy for access key (IAM user)
 
@@ -465,7 +486,9 @@ note:
    7. Type or paste a JSON policy document(for access key management for IAM user). For details about the IAM policy language, see IAM JSON policy reference.
    
    8. Now generate access key using AWS CLI.
+      
       >>IAM >> Users >> Security credentials >> create acess key
+
    9.  Dowload and store the access file for future
    
 💡note: we need aws IAM for S3-Backet to store our model in cloud for the purpose of deployment and mlflow
@@ -473,7 +496,9 @@ note:
 ### 🌳 How to create S3-Bucket in AWS
 
     1.  use IAM user for creating S3 Bucket not root user
+   
     2.  no EC2 requires
+   
     3.  Amazon S3 >> create bucket >>
 
 ### 📡 MLflow
@@ -496,6 +521,7 @@ d. create `run.sh` file execution. It will set environment, perpare the mlflow s
 e. update docker-compose.yaml
 
 ✳️ f. add required lines in docker-compose.yaml file to access `AWS S3-Bucket` to make it access as we store model in there.
+
 ```
 environment:
     &airflow-common-env
@@ -511,12 +537,13 @@ h. import necessary libaries and codes for mlflow. now we need a host for mlflow
 
 i. set tracking uri in that code for mlflow. here, we choose `port 5000` in `Docker-mlflow` file
 
-```sh
+```
 global TRACKING_SERVER_HOST
 mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
 ```
 ### 👽 Runnning MLFlow with Docker (without Apache Airflow)
-this is a process to check the mlflow is working properly or not in Docker Container with Apache Airflow. Perform all of this outside of 👷 `virtual environment``
+this is a process to check the mlflow is working properly or not in Docker Container with Apache Airflow. Perform all of this outside of 👷 `virtual environment`
+
 ```sh
 deactivate
 ```
@@ -524,28 +551,34 @@ a. firstly, stop the `Apache Airflow` running container.
 
 powershell command:
 
-to container ID for Apache Airflow Webserver
+>> to container ID for Apache Airflow Webserver
+
 ```sh
 docker ps
 ```
-to stop  container ID for Apache Airflow Webserver
+>> to stop  container ID for Apache Airflow Webserver
+
 ```sh
 docker stop CONTAINER ID
 ```
-to start respective container
+>> to start respective container
+
 ```sh
 docker start CONTAINER ID
 ```
+
 b. build the image of mlflow in doceker
+
 ```sh
 docker build -t mlflow-server -f Docker-mlflow .
 ```
 c. to run the mlflow server in docker container
+
 ```sh
 docker run -p 5000:5000 -v mlflow:/mlflow mlflow-server
 
 ```
-for mlflow server: http://localhost:5000/
+#for mlflow server: http://localhost:5000/
 
 ![Alt text](image-7.png)
 
@@ -554,13 +587,16 @@ for mlflow server: http://localhost:5000/
 ### 🔓 Final Execution of Docker Containers for Apache-Airflow and MLFlow
 
 a. stops all containers
+
 b. remove all the containers from `Docker Desktop`
 
-Intialization
+#Intialization
+
 ```sh
 docker-compose up airflow-init
 ```
-Bulid Docker
+#Bulid Docker
+
 ```sh
 docker-compose up
 
@@ -580,9 +616,28 @@ Issue: `/run.sh: 19: mlflow: not found` . check the run.sh and Docker File.
 solution : forget to add AWS access details in Docker File for mlflow
 #aws access key details
 
-```ENV AWS_ACCESS_KEY_ID= your aws access key id
+
+   ```ENV AWS_ACCESS_KEY_ID= your aws access key id
    ENV AWS_SECRET_ACCESS_KEY= your aws access key```
 
 😇 Project Work Summarization:
 
 Apache Airflow has been used to prerform and train the model over there. And MLFlow has been used to taking the log of training.
+
+### Evidently 
+The open-source ML observability platform. It uses for ML Model Evaluation, Day to Day Prediction Status, Data Drifting, Model Drifting
+
+Data Drifiting: Real-life data  changes over time due to user bahaviour/other  issue resulted change in distribution. To measure, how much data chages over time and impacts the model using evidently. 
+Either we remove the data which causes problem or we need to re-trained the model with new sets to data.
+
+a. add code in dags at `.py ` for evidently and also add new task for data drifting with required libraries
+
+b. run `docker-compose`
+
+```sh
+docker-compose up
+```
+c. run respective dags in airflow
+
+d. go to desktop >> project >> find report to open respective html file to view `evidently report`
+
