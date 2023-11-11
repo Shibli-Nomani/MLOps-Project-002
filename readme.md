@@ -1,24 +1,62 @@
+### 🌲Project Name: Airlines Price Prediction
+###### ⛄ Project Work: EDA, Feature Engineering, Model Building and End2End Deployment
+###### 🔔Tools: Jypyter Nootbook, Docker, Apache Airflow, DVC, MLFlow, AWS S3-BUcket, Evidetly, Flask
+
+##### 👇 Dataset Summary:
+
+The dataset comprises over 300,261 records related to flight bookings on Easemytrip for travel between major Indian cities. It includes 11 features describing various aspects of the flights.
+
+
+- `Key Attributes:`
+
+1. Airline: Categorical (6 airlines)
+
+2. Flight: Categorical
+
+3. Source City: Categorical (6 cities)
+
+4. Departure Time: Categorical (6 time labels)
+
+5. Stops: Categorical (3 values)
+
+6. Arrival Time: Categorical (6 time labels)
+
+7. Destination City: Categorical (6 cities)
+
+8. Class: Categorical (Business/Economy)
+
+9. Duration: Continuous (hours)
+
+10. Days Left: Derived
+
+11. Price: Target variable (ticket price)
+
+
 
 ### 😺 Complete list of emoji Markup: 
 https://gist.github.com/rxaviers/7360908
 
 ### 🐍 Environment Setup
+
 1. Install vscode
 2. Install Python pyenv 
 3. Install python 3.8.6 using pyenv (Pyevn cheat sheet added below)
    >>video link to install pyenv and python
+   
    ```sh
-   https://www.youtube.com/watch?v=HTx18uyyHw8
+         https://www.youtube.com/watch?v=HTx18uyyHw8
    ```
+   
    ```sh
-   https://k0nze.dev/posts/install-pyenv-venv-vscode/
+         https://k0nze.dev/posts/install-pyenv-venv-vscode/
    ```
 4. Activate it in powershell(vscode)
+
 ```sh
-pyenv shell 3.8.6
+   pyenv shell 3.8.6
 ```
 5. 🎏 Install dependent extension in vscode
-   ```sh
+   ```
    1. DVC
    2. autoDocstring-Python
    3. autopep8 : formatting python official guideline
@@ -62,37 +100,40 @@ pyenv shell 3.8.6
    b. install wsl-2
 
    ```sh
-   https://github.com/Shibli-Nomani/MLops---E2E/blob/main/week-03-06-wsl-Docker-ApcaheAirflow-DVC/w_04_05_install_Docker_and_Apache_Airflow_Data_Pipeline.ipynb
+      https://github.com/Shibli-Nomani/MLops---E2E/blob/main/week-03-06-wsl-Docker-ApcaheAirflow-DVC/w_04_05_install_Docker_and_Apache_Airflow_Data_Pipeline.ipynb
 
    ```
    c. software download: 
    ```sh 
-   Download this WSL 2 kernel update (required). https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 
+      Download this WSL 2 kernel update (required). https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 
    ```
    d. command for windows command promopt for wsl 2 activation
-   ```
-   
-    #wsl version and state
-    wsl -l -v
+   #wsl version and state
+      ```sh
+         wsl -l -v
+      ```
 
-    #set wsl version (wsl 1 to wsl 2)
-    wsl --set-version Ubuntu-20.04 2
-
+   #set wsl version (wsl 1 to wsl 2)
+      ```sh
+         wsl --set-version Ubuntu-20.04 2
+      ```
     #run wsl 2
-    wsl -d Ubuntu-20.04 
-
-    #shutdown wsl 2
-
-    wsl --shutdown
-
-   ```
+      ```sh 
+         wsl -d Ubuntu-20.04 
+      ```
+   #shutdown wsl 2
+      ```sh
+         wsl --shutdown
+      ```
 
 7. 🎏 Install Docker  
    a. software download:
+
    ```sh
-   https://docs.docker.com/docker-for-windows/install/ 
+      https://docs.docker.com/docker-for-windows/install/ 
    ```
-   b. installation process
+   b. installation process:
+
    ```sh
    https://www.simplilearn.com/tutorials/docker-tutorial/install-docker-on-windows
    ```
@@ -102,24 +143,30 @@ pyenv shell 3.8.6
  ### 🌳Create Virtual Environment in vscode for MLOps Project  
 8.  create virtual environment for the project under powershell
  optional: for create folder 
-    ```
-    #to create project directory
-    mkdir MLOPS-PROJECT-002
-
+ #to create project directory
+   ```sh
+         mkdir MLOPS-PROJECT-002
+   ```
     #install virtual env
-    pip install virtualenv
-
+   ```sh
+      pip install virtualenv
+   ```
     #create virtual env under project directory
-    python -m venv mlops_env
-    ````
-    To activate virtual env in powershell(vscode)
+   ```sh
+      python -m venv mlops_env
+   ``` 
+
+    #To activate virtual env in powershell(vscode)
+    
     ![Alt text](image-4.png)
 
-    ```sh
-    .\mlops_env\Scripts\activate
-    ```
+   ```sh
+      .\mlops_env\Scripts\activate
+   ```
 >> 👉  note: select python kernel  [View >> Command Palette >> Python(select interpreter) >> Python 3.8.6 (mlops_env: venv)]
+
 ### 💡 Exploratory Data Analysis and Install Dependent Libaries
+
 9. Use vscode for EDA on Jypter Notebook and other project related work
 10. 🎏 install requiered python libaries after activating the virtual env 
 
@@ -131,11 +178,11 @@ others...
 ```
 🎆or use and install listed libaries as per dependancy 
 ```sh
-notebook_requirements.txt
+   notebook_requirements.txt
 ```
 powerhell command
 ```sh
-pip install -r notebook_requirements.txt 
+   pip install -r notebook_requirements.txt 
 ```
 1.  Performing EDA and Model Bulding over Dataset in **notebook**
 2.  👻 add .gitignore in project directory to ignore the files that you don't want to push in git
@@ -147,13 +194,13 @@ pip install -r notebook_requirements.txt
 
 
 ```sh
-git pull
+   git pull
 ```
 >> a. Source Control >> select git repo >> commit
 [version name >> add Changes to Staged Changes]
 
 ```sh
-git push
+   git push
 ```
 
 
@@ -188,7 +235,7 @@ file name should be DockerFile
 
 To check the list of python version of different libaries[without virtual env]
 ```sh
-pip freeze
+   pip freeze
 ```
 
 ```
@@ -223,31 +270,31 @@ g. remove airflow-worker
 ```
 13. create folder dags, logs, config, plugins under project directory
 ```sh
-mkdir dags
+   mkdir dags
 ```
 ```sh
-mkdir logs
+   mkdir logs
 ```
 ```sh
-mkdir plugins
+   mkdir plugins
 ```
 ```sh
-mkdir config
+   mkdir config
 ```
 
 🌵 run below commands outside of virtual environment in powershell
  a. to de-activate virtual env in powershell
  ```sh
- deactivate
+   deactivate
  ```
  🎆 initate Apache Airflow
  necessary command for powershell
 ```sh
-docker-compose up airflow-init
+   docker-compose up airflow-init
 ```
 🎆 run Apache Airflow inside docker
 ```sh
-docker-compose up 
+   docker-compose up 
 ```
 ###  💡 Run Apache Airflow in Browser
 😌 Apache Airflow is ready!!
@@ -312,35 +359,35 @@ docker ps
    Find the name of container and run bash to go inside docker container. here container name is `e87588ff2b07`
      
 ```sh
-docker exec -it e87588ff2b07 /bin/bash
+   docker exec -it e87588ff2b07 /bin/bash
 ```
    🔥Install required libaries inside docker for apache airflow [if requires]
     
 ```sh
-pip install xgboost
+   pip install xgboost
 ```
    Exit Container of Apache Airflow
     
 ```sh
-exit
+   exit
 ```
    To apply changes, stop and start Airflow Container (name = e87588ff2b07)
 
 ```sh
-docker stop e87588ff2b07
+   docker stop e87588ff2b07
 ```
 
 ```sh
-docker start e87588ff2b07
+   docker start e87588ff2b07
 ```
 ### 🐍 Python Code Format Fixing Using Black
 a. install black in powershell
 ```sh 
-pip install black
+   pip install black
 ```
 b. select python dag directory to execute black
 ```sh
-black .\dags\airplane_price.py
+   black .\dags\airplane_price.py
 ```
 c. add docstring for developer understanding for each task. 😇
 
@@ -362,14 +409,14 @@ DVC is like Git but for data, helping you manage and version control your data f
       🌟write command to initiate git
 
 ```sh
-git init
+   git init
 ```
       🌟#initiate dvc
          #for data versioning and check the performance for any data version. old and new
          #access any version
          #we can work with git for data versioning. But there is a data store limitation 10GB.
 ```sh
-dvc init
+   dvc init
 ```
       
       🌟create a .gitignore file and write details what we don't need to push
@@ -379,31 +426,31 @@ dvc init
       🌟add data directory to dvc 
 
 ```sh
-dvc add data/
+   dvc add data/
 ```
       😤 note: ERROR:  output 'data' is already tracked by SCM (e.g. Git). You can remove it from Git, then add to DVC
       remove data directory from git
       
 ```sh
-git rm -r --cached 'data'
+   git rm -r --cached 'data'
 ```
 ```sh 
-git commit -m "stop tracking data"
+   git commit -m "stop tracking data"
 ```
 
       🌟now add data directory to dvc 
 ```sh
-dvc add data/
+   dvc add data/
 ```
       note: it will create a file data.dvc
 
 ```sh
-dvc status
+   dvc status
 ```
    powershell will suggest what to add for tracking with git
 
 ```sh
-git add data.dvc .gitignore
+   git add data.dvc .gitignore
 ```
 
 👊 DVC Dataversion Switching Process
@@ -412,21 +459,21 @@ git add data.dvc .gitignore
 >> original: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,2.33,1,5955
 >> changed: 4,Vistara,UK-963,Delhi,Morning,zero,Morning,Mumbai,Economy,3.33,1,7955
 
-Is it change working ❓ 
+Is the change working ❓ 
 
 ```sh
-dvc status
+   dvc status
 ```
 note: yes, modified: data
 
 #add new version of data
 
 ```sh
-dvc add data/
+   dvc add data/
 ```
 
 ```sh
-git add data.dvc
+   git add data.dvc
 ```
 😎 note: md tokenization number will be changed with the change of new data. sample is
 '''md5: 4d9c91336a48c7628e9fad91fb45b963.dir'''
@@ -437,11 +484,11 @@ git add data.dvc
 #for initial version
 
 ```sh
-git checkout Head~1
+   git checkout Head~1
 ```
 
 ```sh
-dvc checkout
+   dvc checkout
 ```
 or, 
 🌟to choose/check specific version
@@ -451,13 +498,13 @@ or,
 #apply command in powershell[version you would like to check]
 
 ```sh
-git checkout 6906c5b1fa6dc60b6f2269d0bd40dfd4f4cb6456(number changes as per version)
+   git checkout 6906c5b1fa6dc60b6f2269d0bd40dfd4f4cb6456(number changes as per version)
 ```
 
 #checkout dvc as well
 
 ```sh
-dvc checkout
+   dvc checkout
 ```
 note:
 😅 select the main brach to upload any update in GitHub as we have created DVC for Data Version 
@@ -511,7 +558,7 @@ a. update requirement.txt with `mlflow` library.
 b. to check mlflow version using powershell
 
 ```sh
-pip freeze
+   pip freeze
 ```
 
 c. create Docker-mlflow with necessary detials
@@ -545,7 +592,7 @@ mlflow.set_tracking_uri(f"http://{TRACKING_SERVER_HOST}:5000")
 this is a process to check the mlflow is working properly or not in Docker Container with Apache Airflow. Perform all of this outside of 👷 `virtual environment`
 
 ```sh
-deactivate
+   deactivate
 ```
 a. firstly, stop the `Apache Airflow` running container.
 
@@ -554,28 +601,30 @@ powershell command:
 >> to container ID for Apache Airflow Webserver
 
 ```sh
-docker ps
+   docker ps
 ```
 >> to stop  container ID for Apache Airflow Webserver
 
 ```sh
-docker stop CONTAINER ID
+   docker stop CONTAINER ID
 ```
 >> to start respective container
 
 ```sh
-docker start CONTAINER ID
+   docker start CONTAINER ID
 ```
 
 b. build the image of mlflow in doceker
+`-t mlflow-server` : name tag for mlflow image ind docker
+`-f Docker-mlflow` : for file directory
 
 ```sh
-docker build -t mlflow-server -f Docker-mlflow .
+   docker build -t mlflow-server -f Docker-mlflow .
 ```
 c. to run the mlflow server in docker container
 
 ```sh
-docker run -p 5000:5000 -v mlflow:/mlflow mlflow-server
+   docker run -p 5000:5000 -v mlflow:/mlflow mlflow-server
 
 ```
 #for mlflow server: http://localhost:5000/
@@ -593,12 +642,12 @@ b. remove all the containers from `Docker Desktop`
 #Intialization
 
 ```sh
-docker-compose up airflow-init
+   docker-compose up airflow-init
 ```
 #Bulid Docker
 
 ```sh
-docker-compose up
+   docker-compose up
 
 ```
 Issue: `/run.sh: 19: mlflow: not found` . check the run.sh and Docker File.
@@ -617,14 +666,20 @@ solution : forget to add AWS access details in Docker File for mlflow
 #aws access key details
 
 
-   ```ENV AWS_ACCESS_KEY_ID= your aws access key id
-   ENV AWS_SECRET_ACCESS_KEY= your aws access key```
+   ''' 
+   ENV AWS_ACCESS_KEY_ID= your aws access key id
+   ENV AWS_SECRET_ACCESS_KEY= your aws access key 
+   '''
+- model resgistration process in `MLFLOW` : https://mlflow.org/docs/latest/model-registry.html#:~:text=Registering%20a%20Model%20From%20the%20MLflow%20Runs%20detail,specify%20a%20unique%20name%20to%20identify%20the%20model.
 
-😇 Project Work Summarization:
+##### 😇 Project Work Summarization:
 
 Apache Airflow has been used to prerform and train the model over there. And MLFlow has been used to taking the log of training.
 
-### Evidently 
+### 🧪 Evidently 
+
+ref: https://www.evidentlyai.com/
+
 The open-source ML observability platform. It uses for ML Model Evaluation, Day to Day Prediction Status, Data Drifting, Model Drifting
 
 Data Drifiting: Real-life data  changes over time due to user bahaviour/other  issue resulted change in distribution. To measure, how much data chages over time and impacts the model using evidently. 
@@ -635,7 +690,7 @@ a. add code in dags at `.py ` for evidently and also add new task for data drift
 b. run `docker-compose`
 
 ```sh
-docker-compose up
+   docker-compose up
 ```
 c. run respective dags in airflow
 
@@ -645,3 +700,52 @@ d. go to desktop >> project >> find report to open respective html file to view 
 source control >>
 
 ![Alt text](image-9.png)
+
+### 🐳 Model Deployment With Flask and Docker
+
+1. create apps directory and create `main.py` for model
+ 
+2. need to pull the model from `S3-Bucket` and it in `main.py`  
+   - >> mlflow localhost >> Experiments >> Economy_Exp >> Artifacts.
+
+   ![Alt text](image-10.png)
+
+3. create Docker file for flask `Docker-app` for deployment and aws Credentials to access S-3 Bucket 
+   ref: https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/
+   
+   ```
+      # pull the model from S3 bucket and S3 bucket Credentials
+      ENV AWS_ACCESS_KEY_ID=your AWS_ACCESS_KEY_ID
+      ENV AWS_SECRET_ACCESS_KEY=you AWS_SECRET_ACCESS_KEY
+      ENV AWS_BUCKET=t-airticket-bucket-v1
+
+   ```
+   
+4. New the create apps inside apps folder and also new `requirenment.txt` should be create inside apps directory with dependent python libraries.
+
+###### 🔋 Build Flask image inside docker
+
+  1. Build Command
+     - `-t ` : image name/tag of flask
+     - `-f` : directory of Docker File for Flask
+  
+      - Command
+
+      ```sh
+         docker image build -t flaskapp -f .\Docker-apps .
+      ```
+   2. Build notebook under notebook directory to check flask api is working well or not, basically `health-check`
+   `>> notebook  >> flask-api-test.py`
+   3. Port number has chosen randomly based on availability. If we wish, we can choose different port like 60.
+   
+   Run Command:
+      ```sh
+         docker run -p 80:80 -t flaskapp
+      ```
+   4. Add necessary codes in notebook for model output/prediction on top of flask.
+   `>> notebook  >> flask-api-test.py`
+
+### Summary💭: 
+
+Just completed the End2End MLOPs Deployment Project.Here, we have deployed the model of economy class only. And we provide dummy features data to check the predicted data. Result will get better once giving the real input data. We can do the same for Business as well. In future, we can improve more to minimize the mae.
+

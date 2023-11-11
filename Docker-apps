@@ -1,0 +1,23 @@
+# start pulling python image
+FROM tiangolo/uwsgi-nginx-flask:python3.8
+
+# copy apps directory
+COPY /app .
+
+# switch working directory and install python libs
+WORKDIR /app
+#RUN pip install --no-cache-dir --upgrade pip
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r  requirements.txt
+
+# Set envirnoment variable for Flask to run in production mode
+ENV FLASK_ENV=production
+# pull the model from S3 bucket and S3 bucket Credentials
+ENV AWS_ACCESS_KEY_ID=your AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=you AWS_SECRET_ACCESS_KEY
+ENV AWS_BUCKET=t-airticket-bucket-v1
+
+
+# production env
+ENV ENVIRONMENT=production
