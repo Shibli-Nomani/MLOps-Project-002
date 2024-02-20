@@ -105,7 +105,7 @@ https://gist.github.com/rxaviers/7360908
    ```
    c. software download: 
    ```sh 
-      Download this WSL 2 kernel update (required). https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 
+      Download this WSL 2 kernel update (required).  https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
    ```
    d. command for windows command promopt for wsl 2 activation
    #wsl version and state
